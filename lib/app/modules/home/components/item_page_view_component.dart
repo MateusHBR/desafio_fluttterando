@@ -35,7 +35,7 @@ class ItemPageViewComponent extends StatelessWidget {
                 width: double.infinity,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: AppColors.lightOrange,
+                  color: AppColors.orange,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20),
