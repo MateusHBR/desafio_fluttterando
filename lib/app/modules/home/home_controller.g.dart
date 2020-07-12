@@ -69,6 +69,17 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
+  dynamic addCoffe(CoffeModel coffe) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.addCoffe');
+    try {
+      return super.addCoffe(coffe);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 coffeList: ${coffeList},

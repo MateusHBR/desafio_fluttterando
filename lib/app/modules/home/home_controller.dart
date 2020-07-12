@@ -1,7 +1,9 @@
 import 'package:desafio_flutterando_coffe/app/shared/models/coffe_model.dart';
+import 'package:desafio_flutterando_coffe/app/shared/stores/coffe_store.dart';
 import 'package:desafio_flutterando_coffe/app/shared/utils/constants.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+
 import 'package:flutter/material.dart';
 
 part 'home_controller.g.dart';
@@ -9,11 +11,9 @@ part 'home_controller.g.dart';
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
-  // final CoffeStore _coffeStore;
+  final CoffeStore _coffeStore;
 
-  _HomeControllerBase() {
-    // coffeList.addAll(_coffeStore.coffeList);
-  }
+  _HomeControllerBase(this._coffeStore);
 
   @override
   void dispose() {
@@ -103,4 +103,9 @@ abstract class _HomeControllerBase with Store {
       "function": () {},
     },
   ];
+
+  @action
+  addCoffe(CoffeModel coffe) {
+    _coffeStore.addCoffe(coffe);
+  }
 }
