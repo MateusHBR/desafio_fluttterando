@@ -36,7 +36,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             AppBarComponent(
-              onTap: () {},
+              onTap: () {
+                Modular.to.pushNamed('/cart');
+              },
             ),
             Container(
               width: double.infinity,
