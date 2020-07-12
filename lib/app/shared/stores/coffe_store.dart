@@ -16,7 +16,8 @@ abstract class _CoffeStoreBase with Store {
     if (index < 0) {
       cart.add(CoffeCartModel(coffe: coffe, quantity: 1));
     } else {
-      cart[index] = cart[index].copyWith(quantity: cart[index].quantity++);
+      int quantity = cart[index].quantity + 1;
+      cart[index] = cart[index].copyWith(quantity: quantity);
     }
   }
 
@@ -24,9 +25,21 @@ abstract class _CoffeStoreBase with Store {
     int index = cart.indexWhere((coffeCart) => coffeCart.coffe.id == coffe.id);
 
     if (cart[index].quantity > 1) {
-      cart[index] = cart[index].copyWith(quantity: cart[index].quantity--);
+      int quantity = cart[index].quantity - 1;
+      cart[index] = cart[index].copyWith(quantity: quantity);
     } else {
       cart.removeAt(index);
+    }
+  }
+
+  @computed
+  double get finalValue {
+    if (cart.length > 0) {
+      return cart
+          .map((item) => item.quantity * item.coffe.price)
+          .reduce((value, item) => value + item);
+    } else {
+      return 0.0;
     }
   }
 }
