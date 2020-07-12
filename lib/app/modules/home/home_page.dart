@@ -3,9 +3,9 @@ import 'package:desafio_flutterando_coffe/app/modules/home/components/item_page_
 import 'package:desafio_flutterando_coffe/app/modules/home/components/progress_indicator.dart';
 import 'package:desafio_flutterando_coffe/app/shared/colors/app_colors.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_modular/flutter_modular.dart';
 import 'home_controller.dart';
+import 'package:desafio_flutterando_coffe/app/shared/utils/global_scaffold.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -17,7 +17,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
   //use  'controller' variable to access controller
-
+  final snackbar = SnackBar(
+    content: Text('Item adicionado ao carrinho'),
+    backgroundColor: Colors.green,
+  );
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -47,6 +50,11 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 itemBuilder: (context, index) {
                   return ItemPageViewComponent(
                     coffeModel: controller.coffeList[index],
+                    function: () {
+                      controller.addCoffe(controller.coffeList[index]);
+
+                      GlobalScaffold.instance.showSnackBar(snackbar);
+                    },
                   );
                 },
               ),
