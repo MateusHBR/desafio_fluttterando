@@ -21,6 +21,8 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  asuka: ^1.0.3
+  simple_animations: ^2.2.1
   dio: ^3.0.9
   flutter_mobx: ^1.1.0+1
   mobx: ^1.2.1+1
