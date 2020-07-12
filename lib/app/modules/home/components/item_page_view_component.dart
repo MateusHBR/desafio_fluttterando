@@ -1,11 +1,15 @@
+import 'package:desafio_flutterando_coffe/app/shared/animations/fade_animation.dart';
 import 'package:desafio_flutterando_coffe/app/shared/colors/app_colors.dart';
 import 'package:desafio_flutterando_coffe/app/shared/models/coffe_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class ItemPageViewComponent extends StatelessWidget {
+  final Function function;
   final CoffeModel coffeModel;
 
-  const ItemPageViewComponent({@required this.coffeModel});
+  const ItemPageViewComponent(
+      {@required this.coffeModel, @required this.function});
 
   @override
   Widget build(BuildContext context) {
@@ -20,22 +24,38 @@ class ItemPageViewComponent extends StatelessWidget {
       ),
       child: Column(
         children: <Widget>[
-          Container(
-            height: size.height * 0.45,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: AppColors.lightOrange,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-            ),
-            child: SizedBox(
-              height: 80,
-              width: 80,
-              child: Image.asset(
-                coffeModel.url,
-                scale: 5,
+          Hero(
+            tag: coffeModel.id,
+            child: GestureDetector(
+              onTap: () {
+                Modular.to.pushNamed('/item', arguments: coffeModel);
+              },
+              child: Container(
+                height: size.height * 0.45,
+                width: double.infinity,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: AppColors.lightOrange,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                ),
+                child: Material(
+                  color: Colors.transparent,
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        height: size.height * 0.24,
+                        width: size.height * 0.24,
+                        child: Image.asset(
+                          coffeModel.url,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
@@ -79,25 +99,39 @@ class ItemPageViewComponent extends StatelessWidget {
                         fontSize: 18,
                       ),
                     ),
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        height: 45,
-                        width: 45,
+                    Container(
+                      height: 45,
+                      width: 45,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: AppColors.lightOrange,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Stack(
                         alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: AppColors.lightOrange,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/buy_icon.png'),
+                        children: <Widget>[
+                          Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/buy_icon.png'),
+                              ),
                             ),
                           ),
-                        ),
+                          Material(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            color: Colors.transparent,
+                            child: ClipRRect(
+                              child: InkWell(
+                                onTap: function,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
